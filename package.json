@@ -1,6 +1,6 @@
 {
   "name": "@power-elements/emoji-rating",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Super Semantic Star Ratings with ⭐️ Emoji!",
   "main": "emoji-rating.js",
   "scripts": {
