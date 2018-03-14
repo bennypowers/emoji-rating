@@ -1,4 +1,4 @@
-import { LitElement, html } from '/node_modules/@polymer/lit-element/lit-element.js';
+import { LitElement, html } from '../../@polymer/lit-element/lit-element.js';
 
 const add = x => y => x + y;
 
@@ -146,4 +146,3 @@ class EmojiRating extends LitElement {
 }
 
 customElements.define('emoji-rating', EmojiRating);
-
