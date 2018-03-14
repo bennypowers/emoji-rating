@@ -5,9 +5,9 @@ const add = x => y => x + y;
 const range = n =>
   Array.from(Array(Number(n)).keys()).map(add(1));
 
-const content = ({emptyContent, fullContent, max, value}) =>
-  [...range(   value   ).map(() => fullContent),
-   ...range(max - value).map(() => emptyContent)].join('');
+const content = ({empty, full, max, value}) =>
+  [...range(   value   ).map(() => full),
+   ...range(max - value).map(() => empty)].join('');
 
 /**
  * # Super Semantic Star Rating with ⭐ Emoji!
@@ -96,18 +96,28 @@ class EmojiRating extends LitElement {
        * @type {Number}
        */
       value: Number,
-      emptyContent: String,
-      fullContent: String,
+
+      /**
+       * The Emoji to represent an unfilled rating slot. Default ☆.
+       * @type {String}
+       */
+      empty: String,
+
+      /**
+       * The Emoji to represent a filled rating slot. Default ⭐️.
+       * @type {String}
+       */
+      full: String,
     };
   }
 
   constructor() {
     super();
-    this.emptyContent = this.emptyContent || '☆';
-    this.fullContent = this.fullContent || '⭐️';
+    this.empty = this.empty || '☆';
+    this.full = this.full || '⭐️';
   }
 
-  render({min, max, low, high, optimum, value, emptyContent, fullContent}) {
+  render({min, max, low, high, optimum, value, empty, full}) {
     return html`
     <style>
     meter {
@@ -134,7 +144,7 @@ class EmojiRating extends LitElement {
     }
 
     meter + span::before {
-      content: '${ value != null ? content({emptyContent, fullContent, max, value}) : ''}';
+      content: '${ value != null ? content({empty, full, max, value}) : ''}';
     }
     </style>
     <meter id="meter"
