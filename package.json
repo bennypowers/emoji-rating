@@ -1,0 +1,30 @@
+{
+  "name": "@power-elements/emoji-rating",
+  "version": "1.0.0",
+  "description": "Super Semantic Star Ratings with ⭐️ Emoji!",
+  "main": "emoji-rating.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bennypowers/emoji-rating.git"
+  },
+  "keywords": [
+    "custom",
+    "element",
+    "lit-html",
+    "meter",
+    "rating",
+    "semantic"
+  ],
+  "author": "Benny Powers",
+  "license": "CC-BY-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/bennypowers/emoji-rating/issues"
+  },
+  "homepage": "https://github.com/bennypowers/emoji-rating#readme",
+  "dependencies": {
+    "@polymer/lit-element": "^0.2.2"
+  }
+}
