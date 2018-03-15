@@ -11,8 +11,7 @@
     "url": "git+https://github.com/bennypowers/emoji-rating.git"
   },
   "keywords": [
-    "custom",
-    "element",
+    "custom element",
     "lit-html",
     "meter",
     "rating",
