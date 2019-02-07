@@ -1,4 +1,4 @@
-import { LitElement, html } from '../../@polymer/lit-element/lit-element.js';
+import { LitElement, css, html } from 'lit-element';
 
 const add = x => y => x + y;
 
@@ -6,6 +6,7 @@ const range = n =>
   Array.from(Array(Number(n)).keys()).map(add(1));
 
 const content = ({empty, full, max, value}) =>
+  value == null ? '' :
   [...range(   value   ).map(() => full),
    ...range(max - value).map(() => empty)].join('');
 
@@ -25,6 +26,50 @@ const content = ({empty, full, max, value}) =>
  * @extends LitElement
  */
 class EmojiRating extends LitElement {
+  static get styles() {
+    return css`
+      meter {
+        visibility: hidden;
+      }
+
+      meter,
+      meter + span {
+        display: inline-block;
+        width: var(--width);
+        position: relative;
+      }
+
+      meter + span {
+        height: var(--height);
+      }
+
+      meter + span::before {
+        display: inline-flex;
+        height: var(--height);
+        width: var(--width);
+        top: -0.2em;
+        visibility: visible;
+      }
+
+      meter + span::before {
+        content: attr(data-content);
+      }
+    `;
+  }
+
+  render() {
+    return html`
+    <meter id="meter"
+        min="${this.min}"
+        max="${this.max}"
+        low="${this.low}"
+        high="${this.high}"
+        optimum="${this.optimum}"
+        value="${this.value}"></meter>
+      <span role="presentation" data-content="${content(this)}"></span>
+    `;
+  }
+
   static get properties() {
     return {
       /**
@@ -35,7 +80,7 @@ class EmojiRating extends LitElement {
        *
        * @type {[type]}
        */
-      min: Number,
+      min: { type: Number },
 
       /**
        * The upper numeric bound of the measured range.
@@ -45,7 +90,7 @@ class EmojiRating extends LitElement {
        *
        * @type {Number}
        */
-      max: Number,
+      max: { type: Number },
 
       /**
        * The upper numeric bound of the low end of the measured range.
@@ -58,7 +103,7 @@ class EmojiRating extends LitElement {
        *
        * @type {Number}
        */
-      low: Number,
+      low: { type: Number },
 
       /**
        * The lower numeric bound of the high end of the measured range.
@@ -71,7 +116,7 @@ class EmojiRating extends LitElement {
 
        * @type {Number}
        */
-      high: Number,
+      high: { type: Number },
 
       /**
        * This attribute indicates the optimal numeric value.
@@ -83,7 +128,7 @@ class EmojiRating extends LitElement {
        * then the lower range is considered preferred.
        * @type {Number}
        */
-      optimum: Number,
+      optimum: { type: Number },
 
       /**
        * The current numeric value.
@@ -95,67 +140,32 @@ class EmojiRating extends LitElement {
        * max attribute, the value is equal to the nearest end of the range.
        * @type {Number}
        */
-      value: Number,
+      value: { type: Number },
 
       /**
        * The Emoji to represent an unfilled rating slot. Default ☆.
        * @type {String}
        */
-      empty: String,
+      empty: { type: String },
 
       /**
        * The Emoji to represent a filled rating slot. Default ⭐️.
        * @type {String}
        */
-      full: String,
+      full: { type: String },
     };
   }
 
   constructor() {
     super();
-    this.empty = this.empty || '☆';
-    this.full = this.full || '⭐️';
-  }
-
-  render({min, max, low, high, optimum, value, empty, full}) {
-    return html`
-    <style>
-    meter {
-      visibility: hidden;
-    }
-
-    meter,
-    meter + span {
-      display: inline-block;
-      width: var(--width);
-      position: relative;
-    }
-
-    meter + span {
-      height: var(--height);
-    }
-
-    meter + span::before {
-      display: inline-flex;
-      height: var(--height);
-      width: var(--width);
-      top: -0.2em;
-      visibility: visible;
-    }
-
-    meter + span::before {
-      content: '${ value != null ? content({empty, full, max, value}) : ''}';
-    }
-    </style>
-    <meter id="meter"
-        min="${min}"
-        max="${max}"
-        low="${low}"
-        high="${high}"
-        optimum="${optimum}"
-        value="${value}"></meter>
-      <span role="presentation"></span>
-    `;
+    this.min = 0;
+    this.max = 5;
+    this.low = 2;
+    this.high = 4;
+    this.optimum = 5;
+    this.value = 0;
+    this.empty = '☆';
+    this.full = '⭐️';
   }
 }
 

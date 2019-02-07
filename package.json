@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/bennypowers/emoji-rating#readme",
   "dependencies": {
-    "@polymer/lit-element": "^0.2.2"
+    "lit-element": "^2.0.1"
   }
 }
